@@ -51,3 +51,17 @@ def get_schedule_for_league(league_id, locale="en-US", page_token=None): #gets t
     data = resp.json()
     return data
 
+def get_longest_and_shortest_games(): #gets longest and shortest games in the tournament
+
+    def query(sorting_method):
+        return site.cargo_client.query(
+            tables="ScoreboardGames=SG",
+            fields="SG.Gamelength, SG.Team1, SG.Team2, SG.WinTeam",
+            where="SG.Tournament = '%s'"%page_to_query,
+            order_by="SG.Gamelength %s"%sorting_method
+        )[0]
+
+    longest = query("DESC")
+    shortest = query("ASC")
+
+    return (longest, shortest)

@@ -1,8 +1,8 @@
 
 import discord
 import pprint
-from helpers.fetch_data_utils import get_bp, get_schedule_for_league
-from helpers.process_data_utils import get_future_matches, get_current_stage, mp_bp, wr_bp
+from helpers.fetch_data_utils import *
+from helpers.process_data_utils import *
 from datetime import datetime, timezone
 from discord.ext import commands
 import requests
@@ -108,6 +108,27 @@ def standings_embed():
     )
     return embed
 
+def time_embed():
+
+    def get_string(game, adjective):
+        t1 = game["Team1"]
+        t2 = game["Team2"]
+        winner = game["WinTeam"]
+        time = game["Gamelength"]
+        return f"The **{adjective}** game so far was {t1} vs. {t2}. {winner} won in {time}!\n"
+
+    longest, shortest = get_longest_and_shortest_games()
+    description = f"{get_string(longest, "📏 longest")}\n{get_string(shortest, "🤏 shortest")}"
+
+
+
+    embed = discord.Embed(
+    title=f"/time",
+    description=description,
+    color=0x6A5423
+    )
+    return embed
+
 
 
 if __name__ == '__main__':
@@ -145,6 +166,10 @@ if __name__ == '__main__':
     @client.tree.command(name="standings", description="Shows the current standings of the tournament", guild=guild)
     async def standings(interaction: discord.Interaction):
         await interaction.response.send_message(embed=standings_embed())
+
+    @client.tree.command(name="time", description="Shows longest and shortest games in the tournament", guild=guild)
+    async def time(interaction: discord.Interaction):
+        await interaction.response.send_message(embed=time_embed())
 
     @client.event
     async def on_ready():
