@@ -1,0 +1,18 @@
+[project]
+name = "world-pickem-bot"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "anthropic[mcp]>=1.7.0",
+    "discord-py>=2.7.1",
+    "fastmcp>=4.0.5",
+    "httpx>=0.28.1",
+    "mwrogue>=0.1.5",
+    "python-dotenv>=1.2.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+]

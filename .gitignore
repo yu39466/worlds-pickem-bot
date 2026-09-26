@@ -8,3 +8,7 @@ __pycache__/
 
 # Environment files
 .env
+*.html
+wiki_account_*.json
+
+PROJECT_PLAN.md
