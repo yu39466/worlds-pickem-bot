@@ -1,0 +1,3858 @@
+{
+ "data": {
+  "schedule": {
+   "pages": {
+    "older": "b2xkZXI6OjExMjk2NjY2OTkyNDEyOTIyNQ==",
+    "newer": null
+   },
+   "events": [
+    {
+     "startTime": "2024-10-03T13:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129225",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T14:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129231",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129229",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Dplus KIA",
+        "code": "DK",
+        "image": "http://static.lolesports.com/teams/1673260049703_DPlusKIALOGO11.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T16:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129227",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Suzhou LNG Esports",
+        "code": "LNG",
+        "image": "http://static.lolesports.com/teams/1717487697003_LNGlogo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Team Liquid Alienware",
+        "code": "TLAW",
+        "image": "http://static.lolesports.com/teams/1769357207762_TLAlienware_Minimal_Bug-White.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T17:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129217",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T18:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129219",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "GAM Esports",
+        "code": "GAM",
+        "image": "http://static.lolesports.com/teams/1643263093448_GAMyellow.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-03T19:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129221",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "paiN Gaming",
+        "code": "PAIN",
+        "image": "http://static.lolesports.com/teams/1674657011011_pain_logo_white.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194775",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Suzhou LNG Esports",
+        "code": "LNG",
+        "image": "http://static.lolesports.com/teams/1717487697003_LNGlogo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T13:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194773",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T14:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924129233",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194781",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Team Liquid Alienware",
+        "code": "TLAW",
+        "image": "http://static.lolesports.com/teams/1769357207762_TLAlienware_Minimal_Bug-White.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T16:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194777",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "paiN Gaming",
+        "code": "PAIN",
+        "image": "http://static.lolesports.com/teams/1674657011011_pain_logo_white.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T17:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194771",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Dplus KIA",
+        "code": "DK",
+        "image": "http://static.lolesports.com/teams/1673260049703_DPlusKIALOGO11.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T18:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194783",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "GAM Esports",
+        "code": "GAM",
+        "image": "http://static.lolesports.com/teams/1643263093448_GAMyellow.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-04T19:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194779",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-05T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194789",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Suzhou LNG Esports",
+        "code": "LNG",
+        "image": "http://static.lolesports.com/teams/1717487697003_LNGlogo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Dplus KIA",
+        "code": "DK",
+        "image": "http://static.lolesports.com/teams/1673260049703_DPlusKIALOGO11.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-05T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194785",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-06T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194797",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-06T13:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194793",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-06T14:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194795",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-06T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194799",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-07T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194805",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "GAM Esports",
+        "code": "GAM",
+        "image": "http://static.lolesports.com/teams/1643263093448_GAMyellow.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-07T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194801",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "paiN Gaming",
+        "code": "PAIN",
+        "image": "http://static.lolesports.com/teams/1674657011011_pain_logo_white.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Team Liquid Alienware",
+        "code": "TLAW",
+        "image": "http://static.lolesports.com/teams/1769357207762_TLAlienware_Minimal_Bug-White.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-10T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194809",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Dplus KIA",
+        "code": "DK",
+        "image": "http://static.lolesports.com/teams/1673260049703_DPlusKIALOGO11.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-10T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194817",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-11T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194813",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-11T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194829",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-12T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194825",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-12T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194821",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "GAM Esports",
+        "code": "GAM",
+        "image": "http://static.lolesports.com/teams/1643263093448_GAMyellow.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Team Liquid Alienware",
+        "code": "TLAW",
+        "image": "http://static.lolesports.com/teams/1769357207762_TLAlienware_Minimal_Bug-White.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-13T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194833",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Dplus KIA",
+        "code": "DK",
+        "image": "http://static.lolesports.com/teams/1673260049703_DPlusKIALOGO11.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-13T15:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194841",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-13T18:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194837",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Team Liquid Alienware",
+        "code": "TLAW",
+        "image": "http://static.lolesports.com/teams/1769357207762_TLAlienware_Minimal_Bug-White.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-17T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194845",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Suzhou LNG Esports",
+        "code": "LNG",
+        "image": "http://static.lolesports.com/teams/1717487697003_LNGlogo.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       },
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-18T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194851",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-19T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194857",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-20T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194863",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-26T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Semifinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194869",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       },
+       {
+        "name": "WeiboGaming",
+        "code": "WBG",
+        "image": "http://static.lolesports.com/teams/1641202879910_3.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-10-27T13:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Semifinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194875",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       },
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2024-11-02T14:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Finals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "112966669924194881",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       },
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-14T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Play In Knockouts",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475493522079909",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 1,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Invictus Gaming",
+        "code": "IG",
+        "image": "http://static.lolesports.com/teams/1634762917340_300px-Invictus_Gaming_logo.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T05:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006599034",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Vivo Keyd Stars",
+        "code": "VKS",
+        "image": "http://static.lolesports.com/teams/1670542079678_vks.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Team Secret Whales",
+        "code": "TSW",
+        "image": "http://static.lolesports.com/teams/1774598000328_White_EyeText_600p.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T06:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664572",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664574",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664576",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "100 Thieves",
+        "code": "100T",
+        "image": "http://static.lolesports.com/teams/1631819887423_100t-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T09:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664578",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T10:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664580",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Anyone's Legend",
+        "code": "AL",
+        "image": "http://static.lolesports.com/teams/1641199582689_.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664582",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-15T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664584",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T05:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664594",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Vivo Keyd Stars",
+        "code": "VKS",
+        "image": "http://static.lolesports.com/teams/1670542079678_vks.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T06:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664586",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Team Secret Whales",
+        "code": "TSW",
+        "image": "http://static.lolesports.com/teams/1774598000328_White_EyeText_600p.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664596",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664588",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "100 Thieves",
+        "code": "100T",
+        "image": "http://static.lolesports.com/teams/1631819887423_100t-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T09:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664590",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T10:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664592",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Anyone's Legend",
+        "code": "AL",
+        "image": "http://static.lolesports.com/teams/1641199582689_.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664598",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-16T12:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664600",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-17T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664602",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-17T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664606",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Anyone's Legend",
+        "code": "AL",
+        "image": "http://static.lolesports.com/teams/1641199582689_.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-18T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664610",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Team Secret Whales",
+        "code": "TSW",
+        "image": "http://static.lolesports.com/teams/1774598000328_White_EyeText_600p.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-18T09:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664612",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-18T10:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664614",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-18T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664616",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "100 Thieves",
+        "code": "100T",
+        "image": "http://static.lolesports.com/teams/1631819887423_100t-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 1
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-19T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664618",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Fnatic",
+        "code": "FNC",
+        "image": "http://static.lolesports.com/teams/1631819669150_fnc-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-19T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664622",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Vivo Keyd Stars",
+        "code": "VKS",
+        "image": "http://static.lolesports.com/teams/1670542079678_vks.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "PSG Talon",
+        "code": "PSG",
+        "image": "http://static.lolesports.com/teams/1752559016251_PSG_TALON_COLOR.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-22T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664626",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-22T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664630",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       },
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-23T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664638",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Team Secret Whales",
+        "code": "TSW",
+        "image": "http://static.lolesports.com/teams/1774598000328_White_EyeText_600p.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-23T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664634",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-24T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664642",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Vivo Keyd Stars",
+        "code": "VKS",
+        "image": "http://static.lolesports.com/teams/1670542079678_vks.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       },
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-24T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664646",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "100 Thieves",
+        "code": "100T",
+        "image": "http://static.lolesports.com/teams/1631819887423_100t-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-25T05:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664650",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "FlyQuest",
+        "code": "FLY",
+        "image": "http://static.lolesports.com/teams/flyquest-new-on-dark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-25T08:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664654",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "BILIBILI GAMING",
+        "code": "BLG",
+        "image": "http://static.lolesports.com/teams/1682322954525_Bilibili_Gaming_logo_20211.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-25T11:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Swiss",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475798006664658",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 3,
+         "losses": 2
+        }
+       },
+       {
+        "name": "Movistar KOI",
+        "code": "MKOI",
+        "image": "http://static.lolesports.com/teams/1734012609283_MKOI_FullColor_Blue.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 2,
+         "losses": 3
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 3
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-28T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985223",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "Hanwha Life Esports",
+        "code": "HLE",
+        "image": "http://static.lolesports.com/teams/1631819564399_hle-2021-worlds.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-29T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985229",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "CTBC Flying Oyster",
+        "code": "CFO",
+        "image": "http://static.lolesports.com/teams/1656307849320_CFO_Logo.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       },
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-30T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985217",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "G2 Esports",
+        "code": "G2",
+        "image": "http://static.lolesports.com/teams/G2-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       },
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-10-31T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Quarterfinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985211",
+      "flags": [
+       "hasVod"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "Anyone's Legend",
+        "code": "AL",
+        "image": "http://static.lolesports.com/teams/1641199582689_.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 0,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-11-01T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Semifinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985241",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       },
+       {
+        "name": "Gen.G Esports",
+        "code": "GEN",
+        "image": "http://static.lolesports.com/teams/1773829250929_GENGLOGO_GOLD.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 1
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-11-02T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Semifinals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871523985235",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "TOP ESPORTS",
+        "code": "TES",
+        "image": "http://static.lolesports.com/teams/1592592064571_TopEsportsTES-01-FullonDark.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 0
+        },
+        "record": {
+         "wins": 1,
+         "losses": 1
+        }
+       },
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    },
+    {
+     "startTime": "2025-11-09T07:00:00Z",
+     "state": "completed",
+     "type": "match",
+     "blockName": "Finals",
+     "league": {
+      "name": "Worlds",
+      "slug": "worlds"
+     },
+     "match": {
+      "id": "113475871524050783",
+      "flags": [
+       "hasVod",
+       "isSpoiler"
+      ],
+      "teams": [
+       {
+        "name": "T1",
+        "code": "T1",
+        "image": "http://static.lolesports.com/teams/1726801573959_539px-T1_2019_full_allmode.png",
+        "result": {
+         "outcome": "win",
+         "gameWins": 3
+        },
+        "record": {
+         "wins": 3,
+         "losses": 0
+        }
+       },
+       {
+        "name": "kt Rolster",
+        "code": "KT",
+        "image": "http://static.lolesports.com/teams/kt_darkbackground.png",
+        "result": {
+         "outcome": "loss",
+         "gameWins": 2
+        },
+        "record": {
+         "wins": 2,
+         "losses": 1
+        }
+       }
+      ],
+      "strategy": {
+       "type": "bestOf",
+       "count": 5
+      }
+     }
+    }
+   ]
+  }
+ }
+}
