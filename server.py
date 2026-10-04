@@ -237,5 +237,73 @@ async def get_matches(
         return _err(e)
 
 
+@mcp.tool
+async def get_standings(
+    stage: Annotated[
+        str | None,
+        Field(description="Which stage to build the table from: 'swiss' (the default), 'all' for the whole tournament, or a specific stage like 'round 3'."),
+    ] = "swiss",
+) -> dict:
+    """Team standings: every team's win-loss record, ordered best first.
+
+    Use for: who is undefeated, who is 2-1, how does the Swiss table look,
+    who is at the top or bottom, what is everyone's record.
+
+    Defaults to the Swiss stage, where a record genuinely is the competition.
+    Records are near-meaningless in the knockout rounds - every team there is
+    0-1 or 1-1 until they are out, which restates the bracket rather than
+    ranking anyone. For knockout questions use get_matches instead.
+
+    Each row is: team, code (the short form like T1 or 100T), wins, losses.
+    Sorted best record first. wins and losses count MATCHES, not individual
+    games - a team that won a Bo5 3-2 has one win, not three.
+
+    current_stage is the earliest stage still being played, and complete says
+    whether every match in scope has finished. When complete is true,
+    current_stage is the last stage played, not an upcoming one.
+
+    These are played results only. Never say a team has qualified, advanced,
+    or been eliminated: this tool has no bracket and no format rules, so a
+    3-1 record means three wins and one loss and nothing more. Report the
+    records and let the reader draw conclusions.
+    """
+    try:
+        matches = await anyio.to_thread.run_sync(cache.get, "sch", 300, lp.schedule)
+
+        # Scope first, then compute. standings() counts whatever list it is
+        # given, so filtering here is what makes "who is 3-0 in Swiss"
+        # different from "who is 3-0 overall".
+        scope = (stage or "all").strip().lower()
+        if scope not in ("all", "overall", "tournament"):
+            names = lp.resolve_stage(matches, scope)
+            if not names:
+                return {"stage": stage, "count": 0, "standings": [],
+                        "note": "no stage matched; known stages are %s"
+                                % ", ".join(lp.stages(matches))}
+            matches = [m for m in matches if m["stage"] in names]
+
+        rows = lp.standings(matches)
+
+        # Codes come from the match rows, which already carry them, so this
+        # costs no extra query and keeps "T1 (6-2)" consistent with
+        # get_matches.
+        codes = {}
+        for m in matches:
+            codes.setdefault(m["team1"], m.get("team1_code"))
+            codes.setdefault(m["team2"], m.get("team2_code"))
+        for row in rows:
+            row["code"] = codes.get(row["team"])
+
+        return {
+            "stage": stage,
+            "current_stage": lp.current_stage(matches),
+            "complete": all(m["played"] for m in matches) if matches else True,
+            "count": len(rows),
+            "standings": rows,
+        }
+    except Exception as e:
+        return _err(e)
+
+
 if __name__ == "__main__":
     mcp.run()
