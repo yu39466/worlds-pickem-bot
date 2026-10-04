@@ -358,6 +358,57 @@ def resolve_stage(matches, needle):
     return [s for s in present if needle in s.lower()]
 
 
+def team_logos(names):
+    """Map team names to logo URLs.
+
+    Leaguepedia stores a wiki filename ("T1logo profile.png"), not a URL, so
+    the names have to be resolved through the MediaWiki imageinfo API. Both
+    calls are batched - one Cargo query, one API query, for every team at
+    once - and the result is small enough to cache for an hour.
+    """
+    names = sorted(n for n in names if n)
+    if not names:
+        return {}
+    try:
+        rows = _query(
+            tables="Teams=T",
+            fields="T.Name,T.Image",
+            where=" OR ".join("T.Name='%s'" % _esc(n) for n in names),
+        )
+        files = {r["Name"]: r["Image"] for r in rows if r.get("Image")}
+        if not files:
+            return {}
+        answer = site().client.api(
+            "query",
+            titles="|".join("File:" + f for f in files.values()),
+            prop="imageinfo",
+            iiprop="url",
+        )
+        by_title = {}
+        for page in answer.get("query", {}).get("pages", {}).values():
+            info = (page.get("imageinfo") or [{}])[0]
+            if info.get("url"):
+                by_title[page["title"]] = info["url"]
+        return {
+            name: _discord_safe(by_title["File:" + filename])
+            for name, filename in files.items()
+            if "File:" + filename in by_title
+        }
+    except Exception:
+        return {}                     # decoration only - never fail over a logo
+
+
+def _discord_safe(url, width=256):
+    """Rewrite a Fandom image URL into something Discord will actually show.
+
+    Fandom content-negotiates: a URL ending .png is served as image/webp, and
+    Discord's media proxy starts loading it and then drops it. ?format=original
+    forces the real PNG, and scaling it down turns a 128KB logo into ~5KB.
+    """
+    base = url.split("/revision/")[0]
+    return f"{base}/revision/latest/scale-to-width-down/{width}?format=original"
+
+
 def team_matches(match, needle):
     """Does this match involve the team the user named?
 

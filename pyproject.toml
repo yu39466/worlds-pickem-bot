@@ -8,6 +8,7 @@ dependencies = [
     "fastmcp>=4.0.5",
     "httpx>=0.28.1",
     "mwrogue>=0.1.5",
+    "pillow>=12.3.0",
     "python-dotenv>=1.2.3",
 ]
 
