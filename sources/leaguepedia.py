@@ -18,12 +18,20 @@ for credentials) while starting up would hang its host with no error.
 
 import os
 import threading
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import httpx
 from dotenv import load_dotenv
 
-from .errors import ConfigError, Upstream429, UpstreamAuth, UpstreamBadData, UpstreamDown
+from .errors import (
+    ConfigError,
+    SourceError,
+    Upstream429,
+    UpstreamAuth,
+    UpstreamBadData,
+    UpstreamDown,
+)
 
 load_dotenv(Path(__file__).parent.parent / ".env")
 
@@ -194,23 +202,33 @@ def champion_table():
     return table, len(rows)
 
 
-def rank(table, metric="picks", order="desc", min_games=5, champion=None):
+def rank(table, metric="picks", order="desc", min_games=5, champion=None, games_played=None):
     """Rank champion_table() output. Returns a list of flat dicts.
 
     metric "winrate" only includes champions with at least min_games games,
     matching the existing /wr behaviour.
+
+    "presence" is picks + bans: the number of games a champion was drafted or
+    removed. A champion cannot be both picked and banned in the same game, so
+    the sum is a game count, not a double count. Pass games_played (from
+    champion_table) to also get presence_rate as a fraction of the tournament.
     """
     rows = []
     for name, stat in table.items():
         played = stat["wins"] + stat["losses"]
+        presence = stat["picks"] + stat["bans"]
         rows.append({
             "champion": name,
             "picks": stat["picks"],
+            "pick_rate": _rate(stat["picks"], games_played),
             "bans": stat["bans"],
+            "ban_rate": _rate(stat["bans"], games_played),
             "wins": stat["wins"],
             "losses": stat["losses"],
             "games": played,
-            "winrate": round(stat["wins"] / played, 4) if played else None,
+            "presence": presence,
+            "presence_rate": _rate(presence, games_played),
+            "winrate": round(stat["wins"] / played, 3) if played else None,
         })
 
     if champion:
@@ -241,16 +259,152 @@ def schedule():
     )
     out = []
     for row in rows:
+        team1, team2 = row.get("Team1"), row.get("Team2")
+        winner = _int(row.get("Winner"))                 # 1, 2, or None if unplayed
         out.append({
-            "team1": row.get("Team1"),
-            "team2": row.get("Team2"),
+            "team1": team1,
+            "team2": team2,
             "start_utc": row.get("DateTime_UTC"),
+            "start_epoch": _epoch(row.get("DateTime_UTC")),
             "best_of": _int(row.get("BestOf")),
-            "winner": _int(row.get("Winner")),          # 1, 2, or None if unplayed
+            "winner": {1: team1, 2: team2}.get(winner),  # team name, not an index
             "stage": row.get("Tab"),
-            "played": bool(row.get("Winner")),
+            "played": winner is not None,
         })
+
+    # Attach each team's current record. Derived from the same rows, so it
+    # costs no extra query, and it saves the caller a second tool call just
+    # to put "3-1" next to a team name.
+    record = {r["team"]: f'{r["wins"]}-{r["losses"]}' for r in standings(out)}
+    codes = short_codes({m["team1"] for m in out} | {m["team2"] for m in out})
+    for match in out:
+        match["team1_record"] = record.get(match["team1"])
+        match["team2_record"] = record.get(match["team2"])
+        match["team1_code"] = codes.get(match["team1"])
+        match["team2_code"] = codes.get(match["team2"])
     return out
+
+
+def short_codes(names):
+    """Map full team names to their short codes: "100 Thieves" -> "100T".
+
+    Leaguepedia stores only full names on a match row, but people type codes.
+    One extra query per schedule refresh, which the 300s cache absorbs.
+    """
+    names = [n for n in names if n]
+    if not names:
+        return {}
+    try:
+        rows = _query(
+            tables="Teams=T",
+            fields="T.Name,T.Short",
+            where=" OR ".join("T.Name='%s'" % _esc(n) for n in sorted(names)),
+        )
+    except SourceError:
+        return {}                     # cosmetic - never fail a schedule over it
+    return {r["Name"]: r["Short"] for r in rows if r.get("Short")}
+
+
+def stages(matches):
+    """Stage names present in the schedule, in the order they are played."""
+    seen, out = set(), []
+    for m in matches:
+        if m["stage"] and m["stage"] not in seen:
+            seen.add(m["stage"])
+            out.append(m["stage"])
+    return out
+
+
+def resolve_stage(matches, needle):
+    """Which stage names does a user's phrase mean? Returns a list, possibly empty.
+
+    Leaguepedia names the Swiss rounds individually ("Round 1".."Round 5")
+    and has no umbrella label, so "swiss" has to expand to the round names.
+    The groups are derived from whatever stages the data actually contains
+    rather than hardcoded, because Worlds changes format between years.
+
+    Matching is deliberately ordered: an exact name wins first, so "finals"
+    means Finals and not also Quarterfinals and Semifinals.
+    """
+    needle = (needle or "").strip().lower()
+    if not needle:
+        return []
+    present = stages(matches)
+
+    exact = [s for s in present if s.lower() == needle]
+    if exact:
+        return exact
+
+    rounds = [s for s in present if s.lower().startswith("round")]
+    knockout = [s for s in present if s not in rounds]
+    groups = {
+        "swiss": rounds, "swiss stage": rounds, "group": rounds, "group stage": rounds,
+        "knockout": knockout, "knockouts": knockout, "playoff": knockout,
+        "playoffs": knockout, "bracket": knockout, "elimination": knockout,
+    }
+    if needle in groups:
+        return groups[needle]
+
+    abbrev = {"qf": "quarterfinals", "sf": "semifinals", "quarters": "quarterfinals",
+              "quarterfinal": "quarterfinals", "semis": "semifinals", "semi": "semifinals",
+              "semifinal": "semifinals", "final": "finals", "grand final": "finals",
+              "grand finals": "finals"}
+    if needle in abbrev:
+        return [s for s in present if s.lower() == abbrev[needle]]
+
+    starts = [s for s in present if s.lower().startswith(needle)]
+    if starts:
+        return starts
+    return [s for s in present if needle in s.lower()]
+
+
+def team_matches(match, needle):
+    """Does this match involve the team the user named?
+
+    Accepts a full name, a short code, or any part of either, case-insensitive:
+    "100T", "100 thieves", "thieves" and "100t" all find 100 Thieves.
+    """
+    needle = (needle or "").strip().lower()
+    if not needle:
+        return False
+    for side in ("team1", "team2"):
+        name = (match.get(side) or "").lower()
+        code = (match.get(side + "_code") or "").lower()
+        if needle == code or needle in name or needle.replace(" ", "") == name.replace(" ", ""):
+            return True
+    return False
+
+
+def matches_on(matches, day):
+    """Just the matches starting on an ISO date (YYYY-MM-DD, UTC)."""
+    return [m for m in matches if (m["start_utc"] or "").startswith(day)]
+
+
+def resolve_day(matches, day=None, today=None):
+    """Decide which day to show, and say why. Returns (day, basis).
+
+    basis is one of:
+        requested - the caller named a date
+        today     - there are games today
+        next      - nothing today, so the next day that has games
+        last      - no games left at all, so the most recent day
+
+    The "last" case matters once a tournament is over: asking what is on today
+    should say the tournament has finished and show the final day, rather than
+    returning an empty list with no explanation.
+    """
+    today = today or date.today().isoformat()
+    days = sorted({(m["start_utc"] or "")[:10] for m in matches if m["start_utc"]})
+    if not days:
+        return None, "none"
+    if day:
+        return day, "requested"
+    if today in days:
+        return today, "today"
+    upcoming = [d for d in days if d > today]
+    if upcoming:
+        return upcoming[0], "next"
+    return days[-1], "last"
 
 
 def standings(matches=None):
@@ -264,8 +418,10 @@ def standings(matches=None):
     for match in matches:
         if not match["played"] or not match["team1"] or not match["team2"]:
             continue
-        won = match["team1"] if match["winner"] == 1 else match["team2"]
-        lost = match["team2"] if match["winner"] == 1 else match["team1"]
+        won = match["winner"]                 # a team name, not an index
+        if won not in (match["team1"], match["team2"]):
+            continue                          # malformed row; do not guess
+        lost = match["team2"] if won == match["team1"] else match["team1"]
         slot(won)["wins"] += 1
         slot(lost)["losses"] += 1
 
@@ -306,10 +462,11 @@ def length_extremes():
     if not rows:
         return None, None
 
+    # Gamelength_Number is queried and sorted on, but not returned:
+    # "58:51" is the readable form, 58.85 is just how the database sorts.
     def shape(row):
         return {
             "length": row.get("Gamelength"),
-            "minutes": _float(row.get("Gamelength_Number")),
             "team1": row.get("Team1"),
             "team2": row.get("Team2"),
             "winner": row.get("WinTeam"),
@@ -405,6 +562,26 @@ def icon_url(champion):
 
 
 # --------------------------------------------------------------------------
+
+def _epoch(stamp):
+    """Cargo returns "2025-10-15 05:00:00" - UTC, but with no marker on it.
+
+    Discord renders <t:EPOCH:R> in each reader's own timezone, so the epoch
+    is what the bot actually needs; the string is kept for readability.
+    """
+    if not stamp:
+        return None
+    try:
+        naive = datetime.strptime(stamp, "%Y-%m-%d %H:%M:%S")
+    except (TypeError, ValueError):
+        return None
+    return int(naive.replace(tzinfo=timezone.utc).timestamp())
+
+
+def _rate(count, total):
+    """Share of the tournament's games, as a 0-1 fraction rounded to 3 places."""
+    return round(count / total, 3) if total else None
+
 
 def _int(value):
     try:
