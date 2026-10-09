@@ -25,6 +25,9 @@ mcp = FastMCP("lina-worlds")
 # Minimum games for a champion to appear in a winrate ranking.
 MIN_GAMES = 5
 
+# Minimum games for a player to appear in a KDA ranking.
+MIN_GAMES_PLAYER = 5
+
 
 def _err(e):
     """Turn an exception into something Claude can explain to a user.
@@ -301,6 +304,116 @@ async def get_standings(
             "count": len(rows),
             "standings": rows,
         }
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+async def get_player_stats(
+    metric: Annotated[
+        Literal["kills", "deaths", "assists", "kda", "damage", "cs", "vision",
+                "champions_played", "pentakills"],
+        Field(description="Which statistic to rank by. All are tournament totals except kda, which is a per-player rate."),
+    ] = "kills",
+    order: Annotated[
+        Literal["desc", "asc"],
+        Field(description="desc = most/highest, asc = least/lowest"),
+    ] = "desc",
+    limit: Annotated[
+        int,
+        Field(ge=1, le=5, description="How many players to return. At most 5."),
+    ] = 5,
+    player: Annotated[
+        str | None,
+        Field(description="Return only this player's row instead of a ranked list. Partial names work: 'faker', 'guma'."),
+    ] = None,
+) -> dict:
+    """Player statistics for the tournament: kills, deaths, assists, KDA, damage, CS, vision score, pentakills and champion pool.
+
+    Use for questions about individual players: who has the most kills, who has
+    the best KDA, who has played the most champions, how has Faker done, who
+    has the most vision score, how many pentakills have there been.
+
+    Totals, summed over every game the player appeared in:
+      kills, deaths, assists - their scoreline
+      damage                 - damage dealt to champions
+      cs                     - creep score
+      vision                 - vision score
+      pentakills             - may legitimately be 0 for everyone; that is a
+                               real answer, not missing data
+      champions_played       - how many DIFFERENT champions they played, not
+                               how many games
+
+    kda is (kills + assists) / deaths, and is the only rate here. Only players
+    with at least 5 games are ranked by it, so one strong game cannot top the
+    table. The other metrics have no such cutoff.
+
+    Each row also carries team, role and games played. Returns at most 5 players.
+    """
+    try:
+        table, player_games = await anyio.to_thread.run_sync(
+            cache.get, "players", 300, lp.player_table
+        )
+        rows = lp.rank_players(
+            table, metric, order, MIN_GAMES_PLAYER, player, games_played=player_games
+        )
+        if player is None:
+            rows = rows[:limit]
+
+        out = {
+            "metric": metric,
+            "order": order,
+            "players_counted": len(table),
+            "players": rows,
+        }
+        # A ranking where every value is zero is not a ranking - it is five
+        # arbitrary players. Say so, or it reads as a leaderboard.
+        if rows and order == "desc" and not any(r[metric] for r in rows):
+            out["note"] = f"no player has any {metric} in this tournament"
+        return out
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+async def get_tournament_totals() -> dict:
+    """Single-number facts about the tournament as a whole: counts, not rankings.
+
+    Use for "how many" questions: how many games have been played, how many
+    different champions have been picked, how many pentakills, how many
+    reverse sweeps, how many barons, how long is the average game.
+
+    For "who" or "which" questions - most banned champion, best player,
+    team records - use the ranking tools instead.
+
+    Returns:
+      games_played, matches_played   a Bo5 is one match and up to five games
+      champions_picked               how many DIFFERENT champions were picked
+      champions_banned               how many different ones were banned
+      champions_used_at_all          picked or banned
+      champions_never_picked         banned every time, never played
+      total_kills                    across every game
+      average_game_length_minutes    a decimal, e.g. 32.8
+      five_game_series               how many matches went the distance
+      reverse_sweeps                 lost the first two games, won the series;
+                                     reverse_sweep_details names them
+      objectives                     totals for barons, dragons, towers,
+                                     inhibitors, elders, riftheralds,
+                                     voidgrubs, atakhans
+      pentakills                     may legitimately be 0; that is an answer,
+                                     not missing data
+
+    These are objectives SECURED, not stolen - Leaguepedia does not record
+    steals, so never report a steal count.
+    """
+    try:
+        totals = await anyio.to_thread.run_sync(
+            cache.get, "totals", 300, lp.tournament_totals
+        )
+        pentakills = await anyio.to_thread.run_sync(
+            cache.get, "pentakills", 300, lp.pentakill_count
+        )
+        return {**totals, "pentakills": pentakills}
     except Exception as e:
         return _err(e)
 

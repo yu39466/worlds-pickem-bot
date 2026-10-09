@@ -17,6 +17,7 @@ for credentials) while starting up would hang its host with no error.
 """
 
 import os
+import re
 import threading
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -243,6 +244,196 @@ def rank(table, metric="picks", order="desc", min_games=5, champion=None, games_
 
 
 # --------------------------------------------------------------------------
+# player statistics
+# --------------------------------------------------------------------------
+
+def player_table():
+    """One pass over every player-game, returning (table, games_counted).
+
+    table maps player name -> raw totals plus the set of champions they played.
+
+    Note the filter: ScoreboardPlayers has no Tournament column and keys on
+    OverviewPage. Filtering on Tournament here matches nothing and returns an
+    empty result rather than an error, which is how every player statistic
+    silently read as zero before this was found.
+    """
+    rows = _query(
+        tables="ScoreboardPlayers=SP",
+        fields=("SP.Name,SP.Link,SP.Team,SP.Role,SP.Kills,SP.Deaths,SP.Assists,"
+                "SP.DamageToChampions,SP.CS,SP.VisionScore,SP.Pentakills,SP.Champion"),
+        where="SP.OverviewPage='%s'" % _esc(overview_page()),
+    )
+
+    table = {}
+    for row in rows:
+        name = row.get("Name")
+        if not name:
+            continue
+        stat = table.setdefault(name, {
+            # Link is the wiki page name and differs from Name whenever
+            # disambiguation is needed ("Bin" vs "Bin (Chen Ze-Bin)"). Image
+            # lookups key on Link, so it has to be carried through.
+            "link": row.get("Link") or name,
+            "team": row.get("Team"), "role": row.get("Role"), "games": 0,
+            "kills": 0, "deaths": 0, "assists": 0,
+            "damage": 0, "cs": 0, "vision": 0, "pentakills": 0,
+            "champions": set(),
+        })
+        stat["games"] += 1
+        for key, field in (("kills", "Kills"), ("deaths", "Deaths"),
+                           ("assists", "Assists"), ("damage", "DamageToChampions"),
+                           ("cs", "CS"), ("vision", "VisionScore"),
+                           ("pentakills", "Pentakills")):
+            stat[key] += _int(row.get(field)) or 0
+        if row.get("Champion"):
+            stat["champions"].add(row["Champion"])
+        # A player can be traded mid-tournament; the latest row wins.
+        if row.get("Team"):
+            stat["team"] = row["Team"]
+
+    return table, len(rows)
+
+
+def rank_players(table, metric="kills", order="desc", min_games=5, player=None,
+                 games_played=None):
+    """Rank player_table() output. Returns a list of flat dicts.
+
+    Most metrics are tournament totals, so they need no minimum - a player with
+    two games simply ranks low. "kda" is a rate, where one good game would
+    otherwise top the table, so min_games applies to it alone. Same rule
+    rank() uses for winrate.
+    """
+    rows = []
+    for name, stat in table.items():
+        games = stat["games"]
+        deaths = stat["deaths"]
+        rows.append({
+            "player": name,
+            "link": stat["link"],
+            "team": stat["team"],
+            "role": stat["role"],
+            "games": games,
+            "kills": stat["kills"],
+            "deaths": deaths,
+            "assists": stat["assists"],
+            # Deaths of 0 would divide by zero; the convention is to treat a
+            # deathless record as if it were one death rather than infinite.
+            "kda": round((stat["kills"] + stat["assists"]) / max(deaths, 1), 2),
+            "damage": stat["damage"],
+            "cs": stat["cs"],
+            "vision": stat["vision"],
+            "pentakills": stat["pentakills"],
+            "champions_played": len(stat["champions"]),
+        })
+
+    if player:
+        wanted = player.strip().lower()
+        exact = [r for r in rows if r["player"].lower() == wanted]
+        return exact or [r for r in rows if wanted in r["player"].lower()]
+
+    if metric == "kda":
+        rows = [r for r in rows if r["games"] >= min_games]
+
+    rows.sort(key=lambda r: (r[metric] is None, r[metric]), reverse=(order == "desc"))
+    return rows
+
+
+# --------------------------------------------------------------------------
+# tournament totals
+# --------------------------------------------------------------------------
+
+OBJECTIVES = ("Barons", "Dragons", "Towers", "Inhibitors", "Elders",
+              "RiftHeralds", "VoidGrubs", "Atakhans")
+
+
+def tournament_totals():
+    """Single-number facts about the tournament: counts, not rankings.
+
+    One query covers all of it. ScoreboardGames carries the objectives per
+    side, the draft, and the fields needed to reconstruct series order, so
+    reverse sweeps fall out of the same rows rather than costing a second
+    round trip against a wiki that throttles after about five.
+    """
+    fields = ["SG.MatchId", "SG.N_GameInMatch", "SG.Team1", "SG.Team2", "SG.WinTeam",
+              "SG.Team1Kills", "SG.Team2Kills", "SG.Gamelength_Number",
+              "SG.Team1Picks", "SG.Team2Picks", "SG.Team1Bans", "SG.Team2Bans"]
+    for side in ("Team1", "Team2"):
+        fields += ["SG.%s%s" % (side, o) for o in OBJECTIVES]
+
+    rows = _query(
+        tables="Tournaments=T, ScoreboardGames=SG",
+        fields=",".join(fields),
+        where="T.Name='%s'" % _esc(tournament()),
+        join_on="SG.OverviewPage=T.OverviewPage",
+    )
+
+    picked, banned = set(), set()
+    kills = 0
+    objectives = {o.lower(): 0 for o in OBJECTIVES}
+    series = {}
+
+    for row in rows:
+        picked.update(_split(row.get("Team1Picks")) + _split(row.get("Team2Picks")))
+        banned.update(_split(row.get("Team1Bans")) + _split(row.get("Team2Bans")))
+        kills += (_int(row.get("Team1Kills")) or 0) + (_int(row.get("Team2Kills")) or 0)
+        for o in OBJECTIVES:
+            for side in ("Team1", "Team2"):
+                objectives[o.lower()] += _int(row.get(side + o)) or 0
+        series.setdefault(row.get("MatchId"), []).append(row)
+
+    sweeps = reverse_sweeps(series)
+    lengths = [_float(r.get("Gamelength_Number")) for r in rows]
+    lengths = [x for x in lengths if x]
+
+    return {
+        "games_played": len(rows),
+        "matches_played": len(series),
+        "champions_picked": len(picked),
+        "champions_banned": len(banned),
+        "champions_used_at_all": len(picked | banned),
+        "champions_never_picked": len(banned - picked),
+        "total_kills": kills,
+        "average_game_length_minutes": round(sum(lengths) / len(lengths), 1) if lengths else None,
+        "five_game_series": sum(1 for g in series.values() if len(g) >= 5),
+        "reverse_sweeps": len(sweeps),
+        "reverse_sweep_details": sweeps,
+        "objectives": objectives,
+    }
+
+
+def reverse_sweeps(series):
+    """Series where a team lost the first two games and still won.
+
+    Needs the games of a match in played order, which is what N_GameInMatch
+    gives; a match id alone says nothing about sequence.
+    """
+    out = []
+    for games in series.values():
+        games = sorted(games, key=lambda g: _int(g.get("N_GameInMatch")) or 0)
+        if len(games) < 5:
+            continue
+        early = {g.get("WinTeam") for g in games[:2]}
+        if len(early) != 1:
+            continue                  # split the first two, so not a comeback
+        winner = games[-1].get("WinTeam")
+        if winner and winner not in early:
+            out.append({"winner": winner, "lost_first_two_to": early.pop(),
+                        "games": len(games)})
+    return out
+
+
+def pentakill_count():
+    """How many pentakills happened, from the dedicated Pentakills table.
+
+    That table carries both Tournament and OverviewPage, unlike
+    ScoreboardPlayers which only has the latter.
+    """
+    rows = _query(tables="Pentakills=P", fields="COUNT(*)=n",
+                  where="P.Tournament='%s'" % _esc(tournament()))
+    return _int(rows[0]["n"]) if rows else 0
+
+
+# --------------------------------------------------------------------------
 # schedule / standings
 # --------------------------------------------------------------------------
 
@@ -378,17 +569,7 @@ def team_logos(names):
         files = {r["Name"]: r["Image"] for r in rows if r.get("Image")}
         if not files:
             return {}
-        answer = site().client.api(
-            "query",
-            titles="|".join("File:" + f for f in files.values()),
-            prop="imageinfo",
-            iiprop="url",
-        )
-        by_title = {}
-        for page in answer.get("query", {}).get("pages", {}).values():
-            info = (page.get("imageinfo") or [{}])[0]
-            if info.get("url"):
-                by_title[page["title"]] = info["url"]
+        by_title = _resolve_files(files.values())
         return {
             name: _discord_safe(by_title["File:" + filename])
             for name, filename in files.items()
@@ -407,6 +588,92 @@ def _discord_safe(url, width=256):
     """
     base = url.split("/revision/")[0]
     return f"{base}/revision/latest/scale-to-width-down/{width}?format=original"
+
+
+def player_portraits(links):
+    """Map player wiki links to portrait URLs.
+
+    Key on Link, not Name: 14 of the 83 players at Worlds 2025 have a
+    disambiguated page name ("Bin (Chen Ze-Bin)"), and matching on the display
+    name silently misses every one of them.
+
+    PlayerImages has no usable date - SortDate is empty on all but a handful of
+    rows - so the year is read out of the tournament name and filename instead.
+    An image from the tournament's own year is preferred, because a newer one
+    shows the player in whichever jersey they wear now rather than the one they
+    wore at this event.
+    """
+    links = sorted(set(l for l in links if l))
+    if not links:
+        return {}
+    want_year = _tournament_year()
+    try:
+        rows = _query(
+            tables="PlayerImages=PI",
+            fields="PI.Link,PI.Tournament,PI.FileName,PI.IsProfileImage",
+            where=" OR ".join("PI.Link='%s'" % _esc(l) for l in links),
+        )
+    except SourceError:
+        return {}                     # cosmetic - never fail a lookup over it
+
+    best = {}
+    for row in rows:
+        link = row.get("Link")
+        if link not in links or not row.get("FileName"):
+            continue
+        year = _image_year(row)
+        rank = (year == want_year, row.get("IsProfileImage") == "1", year)
+        if link not in best or rank > best[link][0]:
+            best[link] = (rank, row["FileName"])
+    if not best:
+        return {}
+
+    by_title = _resolve_files([f for _, f in best.values()])
+    if not by_title:
+        return {}
+
+    return {
+        link: _discord_safe(by_title["File:" + filename])
+        for link, (_, filename) in best.items()
+        if "File:" + filename in by_title
+    }
+
+
+def _resolve_files(filenames, batch=50):
+    """Turn wiki filenames into URLs via the imageinfo API.
+
+    MediaWiki caps the titles parameter at 50 per request and rejects the whole
+    call past that, so this chunks rather than sending one large query.
+    """
+    out = {}
+    unique = sorted(set(f for f in filenames if f))
+    for i in range(0, len(unique), batch):
+        chunk = unique[i:i + batch]
+        try:
+            answer = site().client.api(
+                "query",
+                titles="|".join("File:" + f for f in chunk),
+                prop="imageinfo",
+                iiprop="url",
+            )
+        except Exception:
+            continue                  # cosmetic - a missing batch loses pictures, not data
+        for page in answer.get("query", {}).get("pages", {}).values():
+            info = (page.get("imageinfo") or [{}])[0]
+            if info.get("url"):
+                out[page["title"]] = info["url"]
+    return out
+
+
+def _tournament_year():
+    found = re.findall(r"(20\d\d)", tournament())
+    return int(found[0]) if found else 0
+
+
+def _image_year(row):
+    text = (row.get("Tournament") or "") + " " + (row.get("FileName") or "")
+    found = re.findall(r"(20\d\d)", text)
+    return max((int(y) for y in found), default=0)
 
 
 def team_matches(match, needle):
@@ -531,7 +798,9 @@ def pentakills(limit=10):
     rows = _query(
         tables="ScoreboardPlayers=SP",
         fields="SP.Name,SP.Champion,SP.Team,SP.TeamVs,SP.Pentakills,SP.DateTime_UTC",
-        where="SP.Tournament='%s' AND SP.Pentakills > 0" % _esc(tournament()),
+        # ScoreboardPlayers keys on OverviewPage - it has no Tournament
+        # column, and filtering on one silently matches nothing.
+        where="SP.OverviewPage='%s' AND SP.Pentakills > 0" % _esc(overview_page()),
         order_by="SP.DateTime_UTC DESC",
         limit=limit,
     )

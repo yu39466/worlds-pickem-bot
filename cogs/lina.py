@@ -84,14 +84,39 @@ class Answer:
     images: list[str] = field(default_factory=list)
 
 
-def _render(answer: "Answer") -> tuple[list[discord.Embed], discord.File | None]:
+def _all_portraits():
+    """Portrait URL for every player in the tournament, keyed by wiki link.
+
+    Synchronous and slow on a cold cache (one Cargo query plus two batched
+    API calls), so callers run it through cache.get in a thread.
+    """
+    table, _ = cache.get("players", 300, lp.player_table)
+    return lp.player_portraits(stat["link"] for stat in table.values())
+
+
+def _render(
+    answer: "Answer",
+    question: str | None = None,
+    asker: dict | None = None,
+) -> tuple[list[discord.Embed], discord.File | None]:
     """Build the embed, plus an attachment when there is more than one logo.
+
+    The question goes in the title because Discord's "user used /lina" header
+    shows the command name but not what was typed, leaving an answer with no
+    visible context.
 
     Discord's two picture slots are different sizes, so two logos placed one
     in each come out mismatched. Several logos are instead drawn into a single
     PNG and attached; the embed points at it with the attachment:// scheme.
     """
     embed = discord.Embed(description=answer.text[:4096], color=EMBED_COLOR)
+
+    if question:
+        # Titles cap at 256 characters.
+        text = question.strip()
+        embed.title = text if len(text) <= 256 else text[:253] + "..."
+    if asker:
+        embed.set_author(name=asker["name"], icon_url=asker.get("icon"))
 
     if len(answer.images) == 1:
         embed.set_thumbnail(url=answer.images[0])
@@ -177,6 +202,21 @@ class LinaCog(commands.Cog):
                 break
             if data.get("standings"):
                 wanted = [data["standings"][0].get("team")]
+                break
+            if data.get("players"):
+                top = data["players"][0]
+                link = top.get("link")
+                if link:
+                    # Resolved for the whole roster, not just this answer's
+                    # players: the cache key is fixed, so whichever question
+                    # ran first would otherwise freeze a map missing everyone
+                    # it did not mention.
+                    pics = await anyio.to_thread.run_sync(
+                        cache.get, "portraits", 3600, _all_portraits
+                    )
+                    if pics.get(link):
+                        return [pics[link]]
+                wanted = [top.get("team")]      # fall back to the team logo
                 break
 
         wanted = [t for t in wanted if t]
@@ -307,7 +347,13 @@ class LinaCog(commands.Cog):
                 # styled card reads as though it were content.
                 await interaction.followup.send(problem)
             else:
-                embeds, attachment = await anyio.to_thread.run_sync(_render, answer)
+                asker = {
+                    "name": interaction.user.display_name,
+                    "icon": interaction.user.display_avatar.url,
+                }
+                embeds, attachment = await anyio.to_thread.run_sync(
+                    _render, answer, question, asker
+                )
                 if attachment:
                     await interaction.followup.send(embeds=embeds, file=attachment)
                 else:
