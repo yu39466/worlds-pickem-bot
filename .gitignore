@@ -6,9 +6,14 @@ __pycache__/
 *.pyc
 *.pyo
 
-# Environment files
-.env
+# Environment files - .env* so copies and backups are covered too,
+# since they hold the same secrets as the original.
+.env*
+!.env.example
 *.html
 wiki_account_*.json
 
 PROJECT_PLAN.md
+
+# macOS
+.DS_Store

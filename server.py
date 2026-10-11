@@ -9,6 +9,7 @@ from fastmcp import FastMCP
 from pydantic import Field
 
 from sources import cache
+from sources import crystal_ball as cb
 from sources import leaguepedia as lp
 from sources.errors import (
     ConfigError,
@@ -27,6 +28,16 @@ MIN_GAMES = 5
 
 # Minimum games for a player to appear in a KDA ranking.
 MIN_GAMES_PLAYER = 5
+
+# Career milestones the pick'ems ask about, e.g. "will Faker reach 700 career
+# Worlds kills". The baseline is whatever the pick'em UI states entering this
+# tournament, taken verbatim rather than computed: Leaguepedia counts Faker at
+# 609 where the pick'em says 616, and the bet settles against theirs. If they
+# correct a figure, change it here.
+CAREER_MILESTONES = {
+    "faker": {"stat": "kills", "baseline": 616, "target": 700,
+              "source": "the Worlds pick'em page"},
+}
 
 
 def _err(e):
@@ -75,8 +86,9 @@ async def get_game_length_extremes() -> dict:
 @mcp.tool
 async def get_champion_stats(
     metric: Annotated[
-        Literal["picks", "bans", "presence", "winrate"],
-        Field(description="Which statistic to rank by. Presence is picks+bans."),
+        Literal["picks", "bans", "presence", "winrate",
+                "deaths_per_game", "kills_per_game", "damage_per_game"],
+        Field(description="Which statistic to rank by. Presence is picks+bans. The per_game metrics are averages across games the champion was played in."),
     ] = "picks",
     order: Annotated[
         Literal["desc", "asc"],
@@ -111,8 +123,24 @@ async def get_champion_stats(
         table, games = await anyio.to_thread.run_sync(
             cache.get, "bp", 300, lp.champion_table
         )
+        play = await anyio.to_thread.run_sync(
+            cache.get, "champ_play", 300, lp.champion_player_stats
+        )
 
-        rows = lp.rank(table, metric, order, MIN_GAMES, champion, games_played=games)
+        rows = lp.rank(table, metric, order, MIN_GAMES, champion,
+                       games_played=games, play_stats=play)
+
+        # A champion nobody picked or banned is absent from the table
+        # entirely. Returning nothing reads like a failed lookup, so say
+        # plainly that they have not appeared.
+        if champion and not rows:
+            return {
+                "metric": metric,
+                "games_played": games,
+                "champions": [{"champion": champion.strip().title(), "picks": 0,
+                               "bans": 0, "presence": 0, "games": 0}],
+                "note": "this champion has not been picked or banned in this tournament",
+            }
 
         if champion is None:
             rows = rows[:limit]
@@ -312,8 +340,11 @@ async def get_standings(
 async def get_player_stats(
     metric: Annotated[
         Literal["kills", "deaths", "assists", "kda", "damage", "cs", "vision",
-                "champions_played", "pentakills"],
-        Field(description="Which statistic to rank by. All are tournament totals except kda, which is a per-player rate."),
+                "champions_played", "pentakills",
+                "kills_per_game", "deaths_per_game", "damage_per_game",
+                "cs_per_game", "vision_per_game", "kill_participation",
+                "best_kills_in_a_game", "best_cs_in_a_game"],
+        Field(description="Which statistic to rank by. Plain names are tournament totals; _per_game names are averages; best_*_in_a_game is their single best game."),
     ] = "kills",
     order: Annotated[
         Literal["desc", "asc"],
@@ -359,6 +390,12 @@ async def get_player_stats(
         )
         if player is None:
             rows = rows[:limit]
+            # Twenty fields per row when the question asked about one of them.
+            # A single-player lookup keeps everything, because "how has Faker
+            # done" genuinely wants the whole line.
+            keep = {"player", "link", "team", "role", "games",
+                    "kills", "deaths", "assists", "kda", metric}
+            rows = [{k: v for k, v in r.items() if k in keep} for r in rows]
 
         out = {
             "metric": metric,
@@ -414,6 +451,139 @@ async def get_tournament_totals() -> dict:
             cache.get, "pentakills", 300, lp.pentakill_count
         )
         return {**totals, "pentakills": pentakills}
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+async def get_team_placements() -> dict:
+    """How far each team got, their region, and who won - plus the finals MVP.
+
+    Use for: who won, who made knockouts, how many regions are in knockouts,
+    did an LCS or EMEA team qualify, which team placed higher, who was MVP,
+    what role was the MVP.
+
+    Each team has: team, region (e.g. Korea, EMEA, North America, China),
+    furthest_stage, made_knockouts, and finish - "champion", "lost in
+    Semifinals", or "still playing" while they are alive.
+
+    `complete` is false while matches remain. When it is false these are
+    standings so far, not final placings: say so rather than naming a winner.
+    `regions_in_knockouts` counts distinct regions among qualified teams.
+
+    `finals_mvp` is null until the deciding match has been played and the MVP
+    recorded; that is a real "not decided yet", not missing data.
+    """
+    try:
+        matches = await anyio.to_thread.run_sync(cache.get, "sch", 300, lp.schedule)
+        placements = await anyio.to_thread.run_sync(
+            cache.get, "placements", 300, lambda: lp.team_placements(matches)
+        )
+        mvp = await anyio.to_thread.run_sync(
+            cache.get, "mvp", 300, lambda: lp.finals_mvp(matches)
+        )
+        qualified = [t for t in placements["teams"] if t["made_knockouts"]]
+        return {
+            **placements,
+            "teams_in_knockouts": len(qualified),
+            "regions_in_knockouts": sorted({t["region"] for t in qualified if t["region"]}),
+            "finals_mvp": mvp,
+        }
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+async def get_career_worlds(
+    player: Annotated[
+        str,
+        Field(description="Player name, e.g. 'Faker'. Partial or alternate spellings are resolved."),
+    ],
+) -> dict:
+    """A player's career totals across every World Championship they have played.
+
+    Use only for career or all-time questions - "has Faker passed 700 career
+    Worlds kills", "how many Worlds has he played". For this tournament's
+    numbers use get_player_stats instead.
+
+    `leaguepedia_career` holds worlds_appearances, games, kills, deaths and
+    assists summed over every Worlds, including the current one.
+
+    `milestone` appears when the pick'ems ask about a career threshold for
+    this player, and it is the part to answer with. It tracks progress using
+    the pick'em's own stated starting figure, not Leaguepedia's, because that
+    is what the bet settles against - the two disagree slightly. Read:
+
+      needed_this_tournament   how many more it takes to hit the target
+      achieved_this_tournament how many they have so far
+      still_needed             what is left, 0 once reached
+      reached                  whether the threshold is met
+
+    So answer from `milestone` when it is present. Mention the Leaguepedia
+    career total only if asked for it directly, and say that it is
+    Leaguepedia's count and differs from the pick'em's figure.
+    """
+    try:
+        found = await anyio.to_thread.run_sync(lp.career_worlds, player)
+        if not found:
+            return {"player": player, "found": False,
+                    "note": "no Worlds appearances on record under that name"}
+
+        out = {"found": True, "leaguepedia_career": found}
+
+        milestone = CAREER_MILESTONES.get((player or "").strip().lower())
+        if milestone:
+            table, _ = await anyio.to_thread.run_sync(
+                cache.get, "players", 300, lp.player_table
+            )
+            name = found["player"]
+            stat = milestone["stat"]
+            so_far = next(
+                (v[stat] for k, v in table.items() if k.lower() == name.lower()), 0
+            )
+            needed = milestone["target"] - milestone["baseline"]
+            out["milestone"] = {
+                "stat": stat,
+                "target": milestone["target"],
+                "baseline_entering": milestone["baseline"],
+                "baseline_source": milestone["source"],
+                "needed_this_tournament": needed,
+                "achieved_this_tournament": so_far,
+                "still_needed": max(needed - so_far, 0),
+                "reached": so_far >= needed,
+            }
+        return out
+    except Exception as e:
+        return _err(e)
+
+
+@mcp.tool
+async def get_crystal_ball() -> dict:
+    """Every pick'em "crystal ball" prediction question, with where it stands now.
+
+    Use when someone asks for the crystal ball, the predictions, the pick'em
+    questions, or how their picks are doing - anything asking for the whole
+    set rather than one statistic. For a single question, the specific tool
+    is cheaper and more precise.
+
+    Each entry has a question and an answer, plus a status that must be
+    respected when phrasing it:
+
+      settled       decided and cannot change - state it as fact
+      leading       current frontrunner, could still change - say "currently"
+                    or "so far", never present it as final
+      open          has not happened yet but still could - say "not yet",
+                    not "no"
+      undetermined  cannot be known yet; `note` says why
+
+    Do not call a leading answer the winner, and do not turn an open answer
+    into a no. Those are the two ways this gets reported wrongly.
+
+    status_counts summarises the set. tournament_complete says whether
+    anything can still change.
+    """
+    try:
+        return await anyio.to_thread.run_sync(cb.answer_all)
     except Exception as e:
         return _err(e)
 

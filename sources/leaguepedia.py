@@ -203,7 +203,45 @@ def champion_table():
     return table, len(rows)
 
 
-def rank(table, metric="picks", order="desc", min_games=5, champion=None, games_played=None):
+def champion_player_stats():
+    """Per-game averages for champions, aggregated from the player rows.
+
+    champion_table() reads ScoreboardGames, which records the draft but not
+    what happened to each champion. Deaths, kills and damage are per player,
+    and ScoreboardPlayers carries the champion they were on - so champion
+    averages have to come from there instead.
+
+    Returns champion -> {games, kills, deaths, assists, damage}.
+    """
+    rows = _query(
+        tables="ScoreboardPlayers=SP",
+        fields=("SP.Champion,COUNT(*)=games,SUM(SP.Kills)=kills,"
+                "SUM(SP.Deaths)=deaths,SUM(SP.Assists)=assists,"
+                "SUM(SP.DamageToChampions)=damage"),
+        where="SP.OverviewPage='%s'" % _esc(overview_page()),
+        group_by="SP.Champion",
+    )
+    out = {}
+    for row in rows:
+        champ = row.get("Champion")
+        if not champ:
+            continue
+        games = _int(row.get("games")) or 0
+        out[champ] = {
+            "games": games,
+            "kills": _int(row.get("kills")) or 0,
+            "deaths": _int(row.get("deaths")) or 0,
+            "assists": _int(row.get("assists")) or 0,
+            "damage": _int(row.get("damage")) or 0,
+            "deaths_per_game": _avg(_int(row.get("deaths")) or 0, games),
+            "kills_per_game": _avg(_int(row.get("kills")) or 0, games),
+            "damage_per_game": _avg(_int(row.get("damage")) or 0, games),
+        }
+    return out
+
+
+def rank(table, metric="picks", order="desc", min_games=5, champion=None,
+         games_played=None, play_stats=None):
     """Rank champion_table() output. Returns a list of flat dicts.
 
     metric "winrate" only includes champions with at least min_games games,
@@ -214,10 +252,14 @@ def rank(table, metric="picks", order="desc", min_games=5, champion=None, games_
     the sum is a game count, not a double count. Pass games_played (from
     champion_table) to also get presence_rate as a fraction of the tournament.
     """
+    play_stats = play_stats or {}
     rows = []
     for name, stat in table.items():
         played = stat["wins"] + stat["losses"]
         presence = stat["picks"] + stat["bans"]
+        # Per-game combat numbers come from the player rows, which is a
+        # different table; a champion that was only ever banned has none.
+        play = play_stats.get(name, {})
         rows.append({
             "champion": name,
             "picks": stat["picks"],
@@ -230,14 +272,19 @@ def rank(table, metric="picks", order="desc", min_games=5, champion=None, games_
             "presence": presence,
             "presence_rate": _rate(presence, games_played),
             "winrate": round(stat["wins"] / played, 3) if played else None,
+            "deaths_per_game": play.get("deaths_per_game"),
+            "kills_per_game": play.get("kills_per_game"),
+            "damage_per_game": play.get("damage_per_game"),
         })
 
     if champion:
         wanted = champion.strip().lower()
         return [r for r in rows if r["champion"].lower() == wanted]
 
-    if metric == "winrate":
-        rows = [r for r in rows if r["games"] >= min_games and r["winrate"] is not None]
+    # Rates distort on small samples, so they share one floor. Pick and ban
+    # counts do not need it - a champion played twice simply ranks low.
+    if metric in ("winrate", "deaths_per_game", "kills_per_game", "damage_per_game"):
+        rows = [r for r in rows if r["games"] >= min_games and r[metric] is not None]
 
     rows.sort(key=lambda r: (r[metric] is None, r[metric]), reverse=(order == "desc"))
     return rows
@@ -260,7 +307,8 @@ def player_table():
     rows = _query(
         tables="ScoreboardPlayers=SP",
         fields=("SP.Name,SP.Link,SP.Team,SP.Role,SP.Kills,SP.Deaths,SP.Assists,"
-                "SP.DamageToChampions,SP.CS,SP.VisionScore,SP.Pentakills,SP.Champion"),
+                "SP.DamageToChampions,SP.CS,SP.VisionScore,SP.Pentakills,"
+                "SP.Champion,SP.TeamKills"),
         where="SP.OverviewPage='%s'" % _esc(overview_page()),
     )
 
@@ -278,6 +326,12 @@ def player_table():
             "kills": 0, "deaths": 0, "assists": 0,
             "damage": 0, "cs": 0, "vision": 0, "pentakills": 0,
             "champions": set(),
+            # Kill participation is (kills + assists) / the team's kills that
+            # game, so it has to be accumulated per game - a season total
+            # divided by a season total would weight blowouts differently.
+            "kp_sum": 0.0, "kp_games": 0,
+            # Single-game bests, for "did anyone get 15 kills in a game".
+            "best_kills": 0, "best_cs": 0,
         })
         stat["games"] += 1
         for key, field in (("kills", "Kills"), ("deaths", "Deaths"),
@@ -285,6 +339,15 @@ def player_table():
                            ("cs", "CS"), ("vision", "VisionScore"),
                            ("pentakills", "Pentakills")):
             stat[key] += _int(row.get(field)) or 0
+        kills = _int(row.get("Kills")) or 0
+        assists = _int(row.get("Assists")) or 0
+        team_kills = _int(row.get("TeamKills")) or 0
+        if team_kills:
+            stat["kp_sum"] += (kills + assists) / team_kills
+            stat["kp_games"] += 1
+        stat["best_kills"] = max(stat["best_kills"], kills)
+        stat["best_cs"] = max(stat["best_cs"], _int(row.get("CS")) or 0)
+
         if row.get("Champion"):
             stat["champions"].add(row["Champion"])
         # A player can be traded mid-tournament; the latest row wins.
@@ -320,8 +383,18 @@ def rank_players(table, metric="kills", order="desc", min_games=5, player=None,
             # deathless record as if it were one death rather than infinite.
             "kda": round((stat["kills"] + stat["assists"]) / max(deaths, 1), 2),
             "damage": stat["damage"],
+            "damage_per_game": _avg(stat["damage"], games),
             "cs": stat["cs"],
+            "cs_per_game": _avg(stat["cs"], games),
             "vision": stat["vision"],
+            "vision_per_game": _avg(stat["vision"], games),
+            "kills_per_game": _avg(stat["kills"], games),
+            "deaths_per_game": _avg(stat["deaths"], games),
+            "kill_participation": (
+                round(stat["kp_sum"] / stat["kp_games"], 3) if stat["kp_games"] else None
+            ),
+            "best_kills_in_a_game": stat["best_kills"],
+            "best_cs_in_a_game": stat["best_cs"],
             "pentakills": stat["pentakills"],
             "champions_played": len(stat["champions"]),
         })
@@ -331,8 +404,11 @@ def rank_players(table, metric="kills", order="desc", min_games=5, player=None,
         exact = [r for r in rows if r["player"].lower() == wanted]
         return exact or [r for r in rows if wanted in r["player"].lower()]
 
-    if metric == "kda":
-        rows = [r for r in rows if r["games"] >= min_games]
+    # Rates reward a single good game, so they get the same small-sample
+    # floor kda has. Totals and single-game bests do not need one.
+    if metric in ("kda", "kill_participation", "damage_per_game", "cs_per_game",
+                  "vision_per_game", "kills_per_game", "deaths_per_game"):
+        rows = [r for r in rows if r["games"] >= min_games and r[metric] is not None]
 
     rows.sort(key=lambda r: (r[metric] is None, r[metric]), reverse=(order == "desc"))
     return rows
@@ -385,6 +461,11 @@ def tournament_totals():
     lengths = [_float(r.get("Gamelength_Number")) for r in rows]
     lengths = [x for x in lengths if x]
 
+    # Pick'ems routinely ask whether more games land either side of a round
+    # number, so the split is reported rather than just the average.
+    split = 32
+    under = sum(1 for x in lengths if x < split)
+
     return {
         "games_played": len(rows),
         "matches_played": len(series),
@@ -394,6 +475,8 @@ def tournament_totals():
         "champions_never_picked": len(banned - picked),
         "total_kills": kills,
         "average_game_length_minutes": round(sum(lengths) / len(lengths), 1) if lengths else None,
+        "games_under_32_minutes": under,
+        "games_32_minutes_or_over": len(lengths) - under,
         "five_game_series": sum(1 for g in series.values() if len(g) >= 5),
         "reverse_sweeps": len(sweeps),
         "reverse_sweep_details": sweeps,
@@ -444,7 +527,7 @@ def schedule():
     """
     rows = _query(
         tables="MatchSchedule=MS",
-        fields="MS.Team1,MS.Team2,MS.DateTime_UTC,MS.BestOf,MS.Winner,MS.Tab,MS.Stream",
+        fields="MS.Team1,MS.Team2,MS.DateTime_UTC,MS.BestOf,MS.Winner,MS.Tab,MS.MVP",
         where="MS.OverviewPage='%s'" % _esc(overview_page()),
         order_by="MS.DateTime_UTC ASC",
     )
@@ -460,6 +543,7 @@ def schedule():
             "best_of": _int(row.get("BestOf")),
             "winner": {1: team1, 2: team2}.get(winner),  # team name, not an index
             "stage": row.get("Tab"),
+            "mvp": row.get("MVP") or None,
             "played": winner is not None,
         })
 
@@ -758,6 +842,170 @@ def current_stage(matches=None):
 
 
 # --------------------------------------------------------------------------
+# placements, regions and career totals
+# --------------------------------------------------------------------------
+
+def team_placements(matches=None):
+    """How far each team got, with their region. Best finish first.
+
+    Placement is derived from the furthest stage a team actually played in,
+    because Leaguepedia publishes no standings table - a bracket position has
+    to be read back out of the results.
+
+    Teams still alive are reported as "still playing" rather than given a
+    finish, so an in-progress tournament does not read as a final table.
+    """
+    matches = schedule() if matches is None else matches
+    if not matches:
+        return {"complete": True, "knockout_stages": [], "teams": []}
+
+    order = {name: i for i, name in enumerate(stages(matches))}
+    rounds = [s for s in order if s.lower().startswith("round")]
+    knockout = [s for s in order if s not in rounds]
+
+    furthest, eliminated, champion = {}, {}, None
+    for match in matches:
+        for team in (match["team1"], match["team2"]):
+            if not team or team == "TBD":
+                continue
+            if order.get(match["stage"], -1) > order.get(furthest.get(team, ""), -1):
+                furthest[team] = match["stage"]
+        if not match["played"] or match["stage"] not in knockout:
+            continue
+        loser = (match["team2"] if match["winner"] == match["team1"] else match["team1"])
+        if loser:
+            eliminated[loser] = match["stage"]
+        if match["stage"] == knockout[-1] if knockout else False:
+            champion = match["winner"]
+
+    unplayed = {m["stage"] for m in matches if not m["played"]}
+    logos_needed = sorted(furthest)
+    regions = team_regions(logos_needed)
+
+    rows = []
+    for team, stage in furthest.items():
+        made_knockouts = any(
+            order.get(s, -1) >= order.get(knockout[0], 10 ** 6)
+            for s in [stage]
+        ) if knockout else False
+        if team == champion:
+            finish = "champion"
+        elif team in eliminated:
+            finish = "lost in %s" % eliminated[team]
+        elif stage in unplayed or any(
+            m["stage"] in unplayed and team in (m["team1"], m["team2"]) for m in matches
+        ):
+            finish = "still playing"
+        else:
+            finish = "eliminated in %s" % stage
+        rows.append({
+            "team": team,
+            "region": regions.get(team),
+            "furthest_stage": stage,
+            "made_knockouts": made_knockouts,
+            "finish": finish,
+        })
+
+    rows.sort(key=lambda r: -order.get(r["furthest_stage"], -1))
+    return {
+        "complete": not unplayed,
+        "knockout_stages": knockout,
+        "teams": rows,
+    }
+
+
+def team_regions(names):
+    """Map team names to their region ("Korea", "EMEA", "North America")."""
+    names = sorted(n for n in names if n)
+    if not names:
+        return {}
+    try:
+        rows = _query(
+            tables="Teams=T", fields="T.Name,T.Region",
+            where=" OR ".join("T.Name='%s'" % _esc(n) for n in names),
+        )
+    except SourceError:
+        return {}
+    return {r["Name"]: r["Region"] for r in rows if r.get("Region")}
+
+
+def finals_mvp(matches=None):
+    """The MVP of the last knockout stage, with their role, or None."""
+    matches = schedule() if matches is None else matches
+    played = [m for m in matches if m["played"] and m.get("mvp")]
+    if not played:
+        return None
+    last = played[-1]
+    role = None
+    rows = _query(
+        tables="ScoreboardPlayers=SP", fields="SP.Name,SP.Role",
+        where="SP.OverviewPage='%s' AND SP.Name='%s'"
+              % (_esc(overview_page()), _esc(last["mvp"])),
+        limit=1,
+    )
+    if rows:
+        role = rows[0].get("Role")
+    return {"player": last["mvp"], "role": role, "stage": last["stage"]}
+
+
+def career_worlds(player):
+    """A player's totals across every World Championship they have played.
+
+    Deliberately not filtered to the configured tournament - this is the one
+    query that reaches outside it, for "will X pass N career Worlds kills".
+    Matching is on Link, so partial display names are resolved first.
+    """
+    link = _resolve_player_link(player)
+    if not link:
+        return None
+    # Grouped by page rather than summed in SQL, because two things have to
+    # be corrected afterwards: "IEM Season X - World Championship" matches the
+    # name but is a different event, and a single Worlds can span two pages
+    # (Play-In and Main Event) which would otherwise count as two appearances.
+    # Joined to Tournaments rather than pattern-matching the page name.
+    # "IEM Season 10 World Championship" is also level Primary and region
+    # International, so only the Worlds naming separates them; the level
+    # excludes umbrella pages, which carry no games, and fan events.
+    rows = _query(
+        tables="ScoreboardPlayers=SP, Tournaments=T",
+        fields=("SP.OverviewPage,COUNT(*)=games,SUM(SP.Kills)=kills,"
+                "SUM(SP.Deaths)=deaths,SUM(SP.Assists)=assists"),
+        where=("SP.Link='%s' AND T.Name LIKE 'Worlds %%' "
+               "AND T.TournamentLevel='Primary'" % _esc(link)),
+        join_on="SP.OverviewPage=T.OverviewPage",
+        group_by="SP.OverviewPage",
+    )
+    rows = [r for r in rows if _int(r.get("games"))]
+    if not rows:
+        return None
+
+    events, totals = set(), {"games": 0, "kills": 0, "deaths": 0, "assists": 0}
+    for row in rows:
+        events.add((row["OverviewPage"] or "").split("/")[0])
+        for key in totals:
+            totals[key] += _int(row.get(key)) or 0
+
+    return {
+        "player": link,
+        "worlds_appearances": len(events),
+        **totals,
+        "includes_play_in": any("Play-In" in (r["OverviewPage"] or "") for r in rows),
+    }
+
+
+def _resolve_player_link(name):
+    """Turn whatever the user typed into a Leaguepedia page name."""
+    needle = (name or "").strip()
+    if not needle:
+        return None
+    rows = _query(tables="PlayerRedirects=PR", fields="PR.AllName,PR.OverviewPage",
+                  where="PR.AllName='%s'" % _esc(needle), limit=1)
+    if rows:
+        return rows[0].get("OverviewPage") or needle
+    return needle
+
+
+# --------------------------------------------------------------------------
 # game length / pentakills / rosters
 # --------------------------------------------------------------------------
 
@@ -896,6 +1144,11 @@ def _epoch(stamp):
     except (TypeError, ValueError):
         return None
     return int(naive.replace(tzinfo=timezone.utc).timestamp())
+
+
+def _avg(total, count):
+    """Per-game average, rounded for readability rather than precision."""
+    return round(total / count, 1) if count else None
 
 
 def _rate(count, total):
